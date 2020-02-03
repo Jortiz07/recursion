@@ -4,40 +4,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Objects;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class PalindromesTest {
 
-  static final String[] positiveTestData = {
-      "2020-02-02",
-      "racecar",
-      "Race Car",
-      "radar",
-      "Rad aR",
-      "",
-      "a",
-      "Aa",
-      "A man, a plan, a canal - Panama!",
-
-  };
-
-  static  final String [] negativeTestData = {
-      "xy",
-      "sonar",
-      "Madame, I'm Adam",
-      "Burrito Dog",
-      "2020-02-03"
-  };
-
-  @Test
-  void isPalindromeAffirmative() {
-    for (String testCase : positiveTestData) {
+  @ParameterizedTest
+  @CsvFileSource(resources = "/affirmative.csv")
+  void isPalindromeAffirmative(String testCase) {
       assertTrue(Palindromes.isPalindrome(testCase));
     }
-  }
-  @Test
-  void isPalindromeNegative() {
-    for (String testCase : negativeTestData) {
+
+  @ParameterizedTest
+  @CsvFileSource( resources = "/negative.csv")
+  void isPalindromeNegative(String testCase) {
       assertFalse(Palindromes.isPalindrome(testCase));
     }
   }
-}
